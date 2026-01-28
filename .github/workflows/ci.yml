@@ -7,31 +7,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Récupérer le code
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # 1️⃣ Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # 2️⃣ Installer Python
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      # 2️⃣ Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    # 3️⃣ Installer les dépendances
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-    # 4️⃣ Lancer les tests
-    - name: Run tests
-      run: python -m pytest
+      # 4️⃣ Run tests
+      - name: Run tests
+        run: python -m pytest
 
-    # 5️⃣ Build Docker
-    - name: Build Docker image
-      run: docker build -t myapp .
+      # 5️⃣ Build Docker image
+      - name: Build Docker image
+        run: docker build -t myapp .
 
-    # 6️⃣ Scanner la sécurité avec Trivy
-    - name: Scan sécurité Docker
-      uses: aquasecurity/trivy-action@v0.31.1
-      with:
-        image-ref: myapp
-        severity: CRITICAL,HIGH
+      # 6️⃣ Scan Docker image with Trivy
+      - name: Scan sécurité Docker
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: myapp
+          severity: CRITICAL,HIGH
